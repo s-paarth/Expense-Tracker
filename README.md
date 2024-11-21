@@ -44,26 +44,44 @@ Split responsibilities into two classes:
    
 ```mermaid
 graph TD
-    A[User Starts Application] --> B{Select an Action}
-    B --> C[Add Expense]
-    B --> D[View Expenses by Category]
-    B --> E[Generate Pie Chart]
+    %% Style Definitions
+    classDef startEnd fill:#f9c6c9,stroke:#d72323,stroke-width:3,color:#000;
+    classDef process fill:#ffe0b5,stroke:#f3a953,stroke-width:2,color:#000;
+    classDef decision fill:#d4f1f4,stroke:#0077b6,stroke-width:2,color:#000,stroke-dasharray: 5 5;
+    classDef action fill:#caf0f8,stroke:#0096c7,stroke-width:2,color:#000;
+    classDef highlight fill:#ade8f4,stroke:#023e8a,stroke-width:3,color:#000,stroke-dasharray: 5 5;
+
+    %% Nodes
+    A((🏁 Start)):::startEnd --> B{📂 Select Action}:::decision
+    B --> C[✍️ Add Expense]:::process
+    B --> D[📊 View by Category]:::process
+    B --> E[📈 Generate Pie Chart]:::process
     
-    C --> F[Input Date, Category, Amount, Description]
-    F --> G[Validate Input]
-    G -->|Valid| H[Add to Expense List]
-    G -->|Invalid| I[Show Error Message]
-    H --> J[Display on Expense Table]
-    
-    D --> K[Group Expenses by Category]
-    K --> L[Show Totals in Table]
-    
-    E --> M[Fetch Expense Data]
-    M --> N[Generate Pie Chart]
-    N --> O[Display Pie Chart]
-    
+    %% Add Expense Flow
+    C --> F((💬 Input Details)):::action
+    F --> G{🛡️ Validate Input}:::decision
+    G -->|✔️ Valid| H[✔️ Add to Expense List]:::process
+    G -->|❌ Invalid| I((❗ Show Error)):::highlight
+    H --> J[📋 Display in Expense Table]:::action
+
+    %% View by Category Flow
+    D --> K[📑 Group Expenses by Category]:::process
+    K --> L((📋 Display Totals)):::action
+
+    %% Generate Pie Chart Flow
+    E --> M[📥 Fetch Expense Data]:::process
+    M --> N[📊 Create Pie Chart]:::process
+    N --> O((📈 Show Chart)):::highlight
+
+    %% Feedback Loops
     J --> B
     L --> B
     O --> B
+
+    %% Styles
+    linkStyle default stroke:#0077b6,stroke-width:2,color:#000;
+    style A fill:#f4f9f4,stroke:#2a9d8f,stroke-width:3;
+    style B fill:#a8dadc,stroke:#457b9d,stroke-width:3,stroke-dasharray: 5 5;
+
 
 
