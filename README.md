@@ -1,5 +1,5 @@
 # Expense-Tracker
-## Team no.15
+## Team no. 15
 ## Objective
 The primary goal of the ExpenseTracker project is to:
 
