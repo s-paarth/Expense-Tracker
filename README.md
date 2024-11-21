@@ -41,17 +41,29 @@ Split responsibilities into two classes:
 
  - Intuitive input fields and responsive components.
  - Easy-to-read pie chart for financial insights.
-
+   
 ```mermaid
 graph TD
-    A[User Opens Application] --> B[ExpenseTrackerApp initializes]
-    B --> C[User Inputs Data]
-    C --> D[Clicks 'Add Expense']
-    D --> E[ExpenseManager.add_expense()]
-    E -->|Valid Data| F[Data Added to List]
-    E -->|Invalid Data| G[Show Error Message]
-    F --> H[Display on Table]
-    G --> C
-    I[User Clicks "Pie Chart"] --> J[Show Pie Chart]
-    J --> K[Display Pie Chart]
+    A[User Starts Application] --> B{Select an Action}
+    B --> C[Add Expense]
+    B --> D[View Expenses by Category]
+    B --> E[Generate Pie Chart]
+    
+    C --> F[Input Date, Category, Amount, Description]
+    F --> G[Validate Input]
+    G -->|Valid| H[Add to Expense List]
+    G -->|Invalid| I[Show Error Message]
+    H --> J[Display on Expense Table]
+    
+    D --> K[Group Expenses by Category]
+    K --> L[Show Totals in Table]
+    
+    E --> M[Fetch Expense Data]
+    M --> N[Generate Pie Chart]
+    N --> O[Display Pie Chart]
+    
+    J --> B
+    L --> B
+    O --> B
+
 
